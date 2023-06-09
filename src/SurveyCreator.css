@@ -1,0 +1,51 @@
+.survey-creator-container {
+    margin: 10px;
+    margin-left: 20px;
+    margin-top: 80px;
+}
+
+.survey-creator-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.survey-creator-container .survey-creator__question {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.survey-creator-container .survey-creator__question-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.survey-creator-container .survey-creator__option {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.survey-creator-container .survey-creator__option input[type='text'] {
+    flex: 1;
+}
+
+.survey-creator-container .survey-creator__remove-option {
+    margin-left: 10px;
+}
+
+.survey-creator-container .survey-creator__add-question,
+.survey-creator-container .survey-creator__remove-question {
+    margin-top: 10px;
+}
+
+.survey-creator-container .survey-creator__buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.survey-creator-container .survey-creator__save-survey {
+    margin-left: 10px;
+}
