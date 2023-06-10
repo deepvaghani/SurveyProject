@@ -1,7 +1,8 @@
 // SurveyStatistics.js
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Table } from 'react-bootstrap';
+import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import './SurveyStatistics.css';
 
 const SurveyStatistics = () => {
     const { surveyId } = useParams();
@@ -25,32 +26,57 @@ const SurveyStatistics = () => {
         fetchStatistics();
     }, [surveyId]);
 
+    const mergeRatiosByQuestion = (statistics) => {
+        const mergedStatistics = [];
+        const mergedQuestions = {};
+
+        statistics.forEach(({ questionText, ratios }) => {
+            if (!mergedQuestions[questionText]) {
+                mergedQuestions[questionText] = [];
+            }
+
+            ratios.forEach(({ answer, ratio }) => {
+                mergedQuestions[questionText].push({ answer, ratio });
+            });
+        });
+
+        for (const questionText in mergedQuestions) {
+            mergedStatistics.push({ questionText, ratios: mergedQuestions[questionText] });
+        }
+
+        return mergedStatistics;
+    };
+
+    const mergedStatistics = mergeRatiosByQuestion(statistics);
+
     return (
-        <Container className="mt-9" style={{ marginTop: '80px' }}>
+        <Container className="survey-statistics-container mt-9" style={{ marginTop: '80px' }}>
             <Row className="justify-content-center">
                 <Col md={8}>
                     <h2 className="text-center mb-4">Survey Statistics for Survey ID: {surveyId}</h2>
-                    {statistics.length > 0 ? (
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>Question</th>
-                                    <th>Answer</th>
-                                    <th>Ratio</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {statistics.map(({ questionText, ratios }) => (
-                                    ratios.map(({ answer, ratio }) => (
-                                        <tr key={`${questionText}-${answer}`}>
-                                            <td>{questionText}</td>
-                                            <td>{answer}</td>
-                                            <td>{(ratio * 100).toFixed(2)}%</td>
-                                        </tr>
-                                    ))
-                                ))}
-                            </tbody>
-                        </Table>
+                    {mergedStatistics.length > 0 ? (
+                        <div className="survey-statistics">
+                            {mergedStatistics.map(({ questionText, ratios }) => (
+                                <Card key={questionText} className="survey-question-card">
+                                    <Card.Body>
+                                        <Card.Title>{questionText}</Card.Title>
+                                        {ratios.map(({ answer, ratio }, index) => (
+                                            <div key={index} className="answer-item">
+                                                <div className="answer-label">
+                                                    <span className="answer-text">{answer}</span>
+                                                </div>
+
+                                                <div className="answer-progress">
+                                                    <div className="progress-bar-container">
+                                                        <ProgressBar now={ratio * 100} label={`${(ratio * 100).toFixed(2)}%`} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </Card.Body>
+                                </Card>
+                            ))}
+                        </div>
                     ) : (
                         <p className="text-center">No statistics available.</p>
                     )}
