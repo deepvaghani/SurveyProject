@@ -433,10 +433,8 @@ app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
     const { surveyId } = req.params;
 
     try {
-        const { responseData } = req.body;
         const responses = await SurveyResponse.find({ 'responseData.id': surveyId, }).exec();
         const statistics = calculateStatistics(responses);
-        console.log(statistics);
         res.json(statistics);
     } catch (error) {
         console.error('Error fetching survey statistics:', error);
