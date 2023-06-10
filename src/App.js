@@ -7,6 +7,7 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import SurveyForm from './SurveyForm';
 import ErrorPage from './ErrorPage';
+import SurveyStatistics from './SurveyStatistics';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -99,6 +100,18 @@ const App = () => {
               path="/FindSurvey/:surveyId"
               element={isAuthenticated ? (
                 <FindSurvey />
+              ) : (
+                <Navigate
+                  to="/login"
+                  replace
+                  state={{ from: `${window.location.pathname}` }}
+                />
+              )}
+            />
+            <Route
+              path="/SurveyReport/:surveyId"
+              element={isAuthenticated ? (
+                <SurveyStatistics />
               ) : (
                 <Navigate
                   to="/login"

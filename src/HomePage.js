@@ -33,9 +33,12 @@ const HomePage = () => {
         fetchSurveys();
     }, []);
 
-
     const handleViewSurvey = (surveyId) => {
         navigate(`/FindSurvey/${surveyId}`);
+    };
+
+    const handleViewSurveyReport = (surveyId) => {
+        navigate(`/SurveyReport/${surveyId}`);
     };
 
     return (
@@ -56,17 +59,21 @@ const HomePage = () => {
                                 <Card.Body>
                                     <Card.Title>{survey.title}</Card.Title>
                                     <Card.Text>{survey.description}</Card.Text>
-                                    <Button variant="primary" onClick={() => handleViewSurvey(survey._id)}>
-                                        View Survey
-                                    </Button>
+                                    <div className="button-group">
+                                        <Button variant="primary" onClick={() => handleViewSurvey(survey._id)}>
+                                            View Survey
+                                        </Button>
+                                        <Button variant="primary" onClick={() => handleViewSurveyReport(survey._id)}>
+                                            Survey Report
+                                        </Button>
+                                    </div>
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))}
                 </Row>
-            )
-            }
-        </Container >
+            )}
+        </Container>
     );
 };
 

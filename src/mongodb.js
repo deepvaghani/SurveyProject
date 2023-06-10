@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./User');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 app.use(bodyParser.json());
@@ -427,6 +428,55 @@ app.post('/api/sendmail', async (req, res) => {
         console.error('An error occurred while sending mail', error);
     }
 });
+
+app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
+    const { surveyId } = req.params;
+
+    try {
+        const { responseData } = req.body;
+        const responses = await SurveyResponse.find({ 'responseData.id': surveyId, }).exec();
+        const statistics = calculateStatistics(responses);
+        console.log(statistics);
+        res.json(statistics);
+    } catch (error) {
+        console.error('Error fetching survey statistics:', error);
+        res.status(500).json({ error: 'An error occurred while fetching survey statistics' });
+    }
+});
+
+function calculateStatistics(responses) {
+    const questionRatios = {};
+
+    responses.forEach((response) => {
+        const { questions } = response.responseData;
+
+        questions.forEach((question) => {
+            const { questionText, answer } = question;
+            if (!questionRatios[questionText]) {
+                questionRatios[questionText] = {};
+            }
+            if (!questionRatios[questionText][answer]) {
+                questionRatios[questionText][answer] = 0;
+            }
+            questionRatios[questionText][answer]++;
+        });
+    });
+
+    const formattedStatistics = Object.entries(questionRatios).map(([questionText, answers]) => {
+        const totalResponses = Object.values(answers).reduce((total, count) => total + count, 0);
+        const ratios = Object.entries(answers).map(([answer, count]) => ({
+            answer,
+            ratio: count / totalResponses,
+        }));
+
+        return {
+            questionText,
+            ratios,
+        };
+    });
+
+    return formattedStatistics;
+}
 
 // Start the server
 const port = 3000;

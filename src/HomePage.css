@@ -55,7 +55,8 @@
     margin-bottom: 1rem;
 }
 
-.survey-card .btn {
-    width: 100%;
+.survey-card .button-group {
+    display: flex;
+    gap: 0.5rem;
     margin-top: auto;
 }
