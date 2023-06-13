@@ -42,14 +42,14 @@ const HomePage = () => {
     };
 
     return (
-        <Container className="homepage-container" style={{ marginLeft: '111px' }}>
-            <h1 className="title" style={{ marginBottom: '40px', marginLeft: '350px' }}>Available Surveys</h1>
+        <Container className="homepage-container">
+            <h1 className="title">Available Surveys</h1>
             {isLoading ? (
-                <div className="text-center" style={{ marginLeft: '-250px', marginTop: '100px' }}>
-                    <Spinner animation="border" role="status">
+                <div className="text-center loading-container">
+                    <Spinner animation="border" role="status" className="loading-spinner">
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
-                    <p style={{ marginLeft: '0px' }}>Loading Surveys...</p>
+                    <p className="loading-text">Loading Surveys...</p>
                 </div>
             ) : (
                 <Row className="survey-list">
@@ -63,7 +63,7 @@ const HomePage = () => {
                                         <Button variant="primary" onClick={() => handleViewSurvey(survey._id)}>
                                             View Survey
                                         </Button>
-                                        <Button variant="primary" onClick={() => handleViewSurveyReport(survey._id)}>
+                                        <Button variant="secondary" onClick={() => handleViewSurveyReport(survey._id)}>
                                             Survey Report
                                         </Button>
                                     </div>

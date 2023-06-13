@@ -3,23 +3,21 @@
 }
 
 .title {
-    text-align: left;
+    text-align: center;
     margin-bottom: 2rem;
 }
 
 .survey-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: center;
     gap: 2rem;
 }
 
 .survey-card {
-    flex: 0 0 calc(25% - 1.5rem);
-    /* Adjust the width based on the desired spacing */
     max-width: 300px;
-    min-block-size: 230px;
-    max-block-size: 500px;
+    min-height: 230px;
+    max-height: 500px;
     background-color: #ffffff;
     border: none;
     border-radius: 0.5rem;
@@ -58,5 +56,22 @@
 .survey-card .button-group {
     display: flex;
     gap: 0.5rem;
+    justify-content: center;
     margin-top: auto;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.loading-spinner {
+    margin-bottom: 1rem;
+}
+
+.loading-text {
+    margin: 0;
 }
