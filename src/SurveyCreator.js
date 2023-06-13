@@ -17,16 +17,29 @@ const SurveyCreator = () => {
     };
 
     const handleOptionChange = (questionIndex, optionIndex, event) => {
+
         const updatedQuestions = [...questions];
         updatedQuestions[questionIndex].options[optionIndex] = event.target.value;
         setQuestions(updatedQuestions);
+        if (questions[questionIndex].type === 'rating') {
+            return;
+        }
     };
 
     const handleTypeChange = (questionIndex, event) => {
         const updatedQuestions = [...questions];
-        updatedQuestions[questionIndex].type = event.target.value;
+        const selectedType = event.target.value;
+        updatedQuestions[questionIndex].type = selectedType;
+
+        updatedQuestions[questionIndex].options = [];
+
+        if (selectedType === 'rating') {
+            updatedQuestions[questionIndex].options = ['1', '2', '3', '4', '5'];
+        }
+
         setQuestions(updatedQuestions);
     };
+
 
     const addQuestion = () => {
         setQuestions([...questions, { question: '', type: '', options: [] }]);
@@ -102,7 +115,7 @@ const SurveyCreator = () => {
                                 />
                             </Form.Group>
 
-                            <Form.Group controlId={`type${questionIndex}`}>
+                            <Form.Group controlId={`type${questionIndex}`} style={{ marginTop: '10px' }}>
                                 <Form.Label>Question Type:</Form.Label>
                                 <Form.Control
                                     as="select"
@@ -113,14 +126,21 @@ const SurveyCreator = () => {
                                     <option value="radiogroup">Single Choice</option>
                                     <option value="checkbox">Multiple Choice</option>
                                     <option value="dropdown">Dropdown</option>
+                                    <option value="rating">Rating</option>
                                 </Form.Control>
                             </Form.Group>
 
+                            {question.type === 'rating' ? (
+                                <Form.Group controlId={`ratingOptions${questionIndex}`} style={{ marginTop: '10px' }}>
+                                    <Form.Label>Rating Options:</Form.Label>
+                                </Form.Group>
+                            ) : (
+                                <Form.Group controlId={`ratingOptions${questionIndex}`}>
 
-                            <ul
-                                className="survey-creator__options"
-                                style={{ marginTop: '10px', marginBottom: '20px' }}
-                            >
+                                </Form.Group>
+                            )}
+
+                            <ul className="survey-creator__options" style={{ marginTop: '10px', marginBottom: '20px' }}>
                                 {question.options.map((option, optionIndex) => (
                                     <li key={optionIndex} className="survey-creator__option">
                                         <Form.Control
@@ -140,17 +160,15 @@ const SurveyCreator = () => {
                                 ))}
                             </ul>
 
-
                             <div className="survey-creator__question-buttons">
-                                {(
-                                    <Button
-                                        onClick={() => addOption(questionIndex)}
-                                        className="survey-creator__add-option"
-                                        style={{ marginBottom: '10px' }}
-                                    >
-                                        Add Option
-                                    </Button>
-                                )}
+                                <Button
+                                    onClick={() => addOption(questionIndex)}
+                                    className="survey-creator__add-option"
+                                    style={{ marginBottom: '10px' }}
+                                >
+                                    Add Option
+                                </Button>
+
                                 <Button
                                     onClick={() => removeQuestion(questionIndex)}
                                     className="survey-creator__remove-question"
@@ -158,11 +176,11 @@ const SurveyCreator = () => {
                                 >
                                     Remove Question
                                 </Button>
+
                             </div>
                         </div>
                     ))}
                 </div>
-
                 <div className="survey-creator__buttons">
                     <Button onClick={addQuestion} className="survey-creator__add-question" style={{ marginTop: '10px' }}>
                         Add Question
@@ -172,7 +190,7 @@ const SurveyCreator = () => {
                     </Button>
                 </div>
             </Form>
-        </Container>
+        </Container >
     );
 };
 
