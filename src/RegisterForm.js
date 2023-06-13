@@ -66,7 +66,7 @@ const RegisterForm = () => {
                     style={{ margin: '20px', marginTop: '2px' }}
                     disabled={isLoading}
                 >
-                    {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Register'}
+                    {isLoading ? <CircularProgress size={20} color="inherit" style={{ marginTop: '6px' }} /> : 'Register'}
                 </button>
             </form>
             <p className="login-text" style={{ margin: '20px', marginTop: '2px' }}>Already have an account? <button className="btn btn-link" onClick={handleRedirecttoLogin} style={{ marginTop: '-5px' }}>Login</button></p>

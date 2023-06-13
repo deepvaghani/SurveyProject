@@ -70,7 +70,7 @@ const LoginForm = ({ handleLogin }) => {
                     style={{ margin: '20px', marginTop: '2px' }}
                     disabled={isLoading} // Disable the button while loading
                 >
-                    {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
+                    {isLoading ? <CircularProgress size={20} color="inherit" style={{ marginTop: '6px' }} /> : 'Login'}
                 </button>
             </form>
             <p className="register-text" style={{ margin: '20px', marginTop: '2px' }}>
