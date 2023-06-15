@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Cookies from 'js-cookie';
 
 const LoginForm = ({ handleLogin }) => {
     const location = useLocation();
@@ -10,12 +11,24 @@ const LoginForm = ({ handleLogin }) => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        // Check if user is already authenticated
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            handleLogin();
+            handleRedirect();
+        }
+    }, [handleLogin]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
             await axios.post('/api/login', { email, password });
+            // Store email ID in a cookie
+            Cookies.set('email', email);
+            // Store authentication status in local storage
+            localStorage.setItem('isLoggedIn', 'true');
             handleLogin();
             handleRedirect();
             window.email = email;

@@ -4,6 +4,7 @@ import 'survey-core/defaultV2.min.css';
 import { Survey } from 'survey-react-ui';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 
 const FindSurvey = () => {
     const { surveyId } = useParams('surveyId');
@@ -12,8 +13,8 @@ const FindSurvey = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        window.email = Cookies.get('email');
         fetchSurveyFromMongoDB();
-        // fetchSurveyFromMongoDB();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [surveyId]);
 
