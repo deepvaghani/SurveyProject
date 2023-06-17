@@ -15,7 +15,6 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [requestedPage, setRequestedPage] = useState(null);
-  const userEmail = Cookies.get('email');
 
   useEffect(() => {
     // Check for authentication status in browser cookies on component mount
@@ -75,7 +74,7 @@ const App = () => {
                   {isAuthenticated ? (
                     <>
                       <li className="nav-item">
-                        <span className="nav-link" style={{ color: "black" }}>{"Welcome, " + userEmail}</span>
+                        <span className="nav-link" style={{ color: "black" }}>{"Welcome, " + Cookies.get("email")}</span>
                       </li>
                       <li className="nav-item">
                         <Link className="nav-link" to="/login" onClick={handleLogout}>
