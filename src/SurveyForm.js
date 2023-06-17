@@ -1,9 +1,9 @@
-import 'survey-core/defaultV2.min.css';
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
+import 'survey-core/modern.fontless.min.css';
 
 const SurveyForm = () => {
 
@@ -111,7 +111,7 @@ const SurveyForm = () => {
     }, [surveyData]); // eslint-disable-next-line
 
     if (surveyData) {
-        return <Container style={{ marginTop: '60px' }}>
+        return <Container style={{ marginTop: '-10px', marginBottom: '-80px' }}>
             <Survey model={surveyData} /></Container>;
     }
 

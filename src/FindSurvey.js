@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'survey-core/defaultV2.min.css';
 import { Survey } from 'survey-react-ui';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
 import Cookies from 'js-cookie';
+import 'survey-core/modern.fontless.min.css';
 
 const FindSurvey = () => {
     const { surveyId } = useParams('surveyId');
@@ -135,7 +135,7 @@ const FindSurvey = () => {
     };
 
     return (
-        <Container style={{ marginTop: '60px' }}>
+        <Container style={{ marginTop: '-10px', marginBottom: '-80px' }}>
             <div>
                 {surveyData ? (
                     <Survey json={surveyData} onComplete={saveSurvey} />

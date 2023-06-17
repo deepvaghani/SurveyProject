@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Cookies from 'js-cookie';
 
 const LoginForm = ({ handleLogin }) => {
     const location = useLocation();
@@ -26,7 +25,8 @@ const LoginForm = ({ handleLogin }) => {
         try {
             await axios.post('/api/login', { email, password });
             // Store email ID in a cookie
-            Cookies.set('email', email);
+            // Cookies.set('email', email);
+            localStorage.setItem('email', email);
             // Store authentication status in local storage
             localStorage.setItem('isLoggedIn', 'true');
             handleLogin();
