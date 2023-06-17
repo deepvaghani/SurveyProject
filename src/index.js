@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://techinsights.netlify.app/';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
