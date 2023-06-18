@@ -72,7 +72,7 @@ const SurveyCreator = () => {
         };
 
         try {
-            await axios.post('http://localhost:3000/api/surveyWithQuestions', surveyData);
+            await axios.post('/api/surveyWithQuestions', surveyData);
             console.log(surveyData);
             console.log('Survey data saved successfully');
             // Success message or handle response accordingly
