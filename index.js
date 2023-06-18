@@ -16,7 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // MongoDB Atlas connection string
-const uri = process.env.MONGODB_URL;;
+const uri = process.env.MONGODB_URL;
 
 // Connect to MongoDB Atlas
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
