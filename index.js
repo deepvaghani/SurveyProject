@@ -1,10 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./User');
 const { MongoClient } = require('mongodb');
-require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
