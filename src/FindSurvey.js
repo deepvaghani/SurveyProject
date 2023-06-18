@@ -7,12 +7,16 @@ import Cookies from 'js-cookie';
 import 'survey-core/modern.fontless.min.css';
 
 const FindSurvey = () => {
+    const isLoggedIn = document.cookie.includes('isAuthenticated=true');
     const { surveyId } = useParams('surveyId');
     const [surveyData, setSurveyData] = useState(null);
     const [completeText, setCompleteText] = useState('Error');
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
         window.email = Cookies.get('email');
         fetchSurveyFromMongoDB();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,11 +24,10 @@ const FindSurvey = () => {
 
     const checkresponse = async () => {
         try {
-            const email = window.email;
             const id = surveyId;
             const response = await axios.post('/api/checkresponse', {
                 responseData: {
-                    email: email,
+                    email: Cookies.get("email"),
                     id: id,
                 },
             });
@@ -109,7 +112,7 @@ const FindSurvey = () => {
             const response = await axios.post('/api/submitSurvey', {
                 surveyId: surveyData.id,
                 responseData: {
-                    email: email,
+                    email: Cookies.get("email"),
                     id: id,
                     questions: questions.map((question) => {
                         const questionId = question.name.replace('question', '');

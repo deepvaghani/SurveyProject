@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && xcopy /Y /S public\\_redirects build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",

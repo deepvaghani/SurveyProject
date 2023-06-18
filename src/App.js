@@ -11,11 +11,12 @@ import SurveyStatistics from './SurveyStatistics';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import './App.css';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [requestedPage, setRequestedPage] = useState(null);
-  var userEmail = localStorage.getItem("email");
+  var userEmail = Cookies.get("email");
 
   useEffect(() => {
     // Check for authentication status in browser cookies on component mount
@@ -43,7 +44,6 @@ const App = () => {
     setIsAuthenticated(false);
   };
 
-
   return (
     <Router>
       <div>
@@ -70,35 +70,35 @@ const App = () => {
                   </NavLink>
                 </li>
               </ul>
-              <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul className="navbar-nav">
-                  {isAuthenticated ? (
-                    <>
-                      <li className="nav-item">
-                        <span className="nav-link" style={{ color: "black" }}>{"Welcome, " + userEmail}</span>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/login" onClick={handleLogout}>
-                          <FontAwesomeIcon icon={faSignOutAlt} />
-                        </Link>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/login">
-                          Login
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/register">
-                          Register
-                        </Link>
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </div>
+            </div>
+            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul className="navbar-nav">
+                {isAuthenticated ? (
+                  <>
+                    <li className="nav-item">
+                      <span className="nav-link" style={{ color: "black" }}>{"Welcome, " + userEmail}</span>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login" onClick={handleLogout}>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login">
+                        Login
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/register">
+                        Register
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
           </div>
         </nav>

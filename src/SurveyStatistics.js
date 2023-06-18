@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './SurveyStatistics.css';
+import axios from 'axios';
 
 const SurveyStatistics = () => {
     const { surveyId } = useParams();
@@ -11,12 +12,12 @@ const SurveyStatistics = () => {
     useEffect(() => {
         const fetchStatistics = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/surveys/${surveyId}/statistics`, {
+                const response = await axios.get(`/api/surveys/${surveyId}/statistics`, {
                     responseData: {
                         id: surveyId,
                     },
                 });
-                const data = await response.json();
+                const data = await response.data;
                 setStatistics(data);
             } catch (error) {
                 console.error('Error fetching survey statistics:', error);

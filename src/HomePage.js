@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Button, Card, Row, Col, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
+import axios from 'axios';
 
 const HomePage = () => {
     const [surveys, setSurveys] = useState([]);
@@ -11,8 +12,8 @@ const HomePage = () => {
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await fetch('/api/surveyWithQuestions');
-                const data = await response.json();
+                const response = await axios.get('/api/surveyWithQuestions');
+                const data = await response.data;
 
                 if (Array.isArray(data)) {
                     const sortedSurveys = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
