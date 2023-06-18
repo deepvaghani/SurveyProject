@@ -355,11 +355,12 @@ app.post('/api/checkresponse', async (req, res) => {
 
         if (existingResponse) {
             // User has already submitted the survey
+            console.log('You have already submitted this survey');
             return res.status(400).json({ error: 'You have already submitted this survey' });
         }
 
         // Send a success response with data (e.g., an empty object)
-        return res.status(200).json({ message: "done" });
+        return res.status(200).json({});
 
     } catch (error) {
         console.error('An error occurred while saving survey response:', error);
