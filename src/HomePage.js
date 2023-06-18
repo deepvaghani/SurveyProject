@@ -11,7 +11,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/surveyWithQuestions');
+                const response = await fetch('/api/surveyWithQuestions');
                 const data = await response.json();
 
                 if (Array.isArray(data)) {

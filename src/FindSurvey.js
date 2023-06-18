@@ -22,7 +22,7 @@ const FindSurvey = () => {
         try {
             const email = window.email;
             const id = surveyId;
-            const response = await axios.post('http://localhost:3000/api/checkresponse', {
+            const response = await axios.post('/api/checkresponse', {
                 responseData: {
                     email: email,
                     id: id,
@@ -45,7 +45,7 @@ const FindSurvey = () => {
         try {
             const status = await checkresponse();
             if (status === true) {
-                const response = await axios.get(`http://localhost:3000/api/surveyWithQuestions/${surveyId}`);
+                const response = await axios.get(`/api/surveyWithQuestions/${surveyId}`);
                 const surveyDataFromMongoDB = response.data;
                 const formattedSurveyData = formatSurveyData(surveyDataFromMongoDB);
                 setSurveyData(formattedSurveyData);
@@ -106,7 +106,7 @@ const FindSurvey = () => {
             const email = window.email;
             const id = surveyId;
             const questions = surveyData.pages[0].elements;
-            const response = await axios.post('http://localhost:3000/api/submitSurvey', {
+            const response = await axios.post('/api/submitSurvey', {
                 surveyId: surveyData.id,
                 responseData: {
                     email: email,
