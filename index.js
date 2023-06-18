@@ -11,8 +11,13 @@ const corsOptions = {
     origin: 'https://techinsights.netlify.app/' // Replace with your frontend URL
 };
 
-// Apply the cors middleware
-app.use(cors(corsOptions));
+// Add a middleware to set the CORS headers
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://techinsights.netlify.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 // MongoDB Atlas connection string
 const uri = 'mongodb+srv://deepvaghani58:Deep2023@surveydb.3s9yqz7.mongodb.net/surveyCollection?retryWrites=true&w=majority';
