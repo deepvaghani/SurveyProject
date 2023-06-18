@@ -1,0 +1,12 @@
+[build]
+  command = "npm run deploy" # Replace with the command to build your backend
+  publish = "dist" # Replace with the directory where the built files are located
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://localhost:3000/api/:splat"
+  status = 200
+  force = true
+
+[dev]
+  command = "npm start" # Replace with your development command
