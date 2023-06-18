@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -16,7 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // MongoDB Atlas connection string
-const uri = 'mongodb+srv://deepvaghani58:Deep2023@surveydb.3s9yqz7.mongodb.net/surveyCollection?retryWrites=true&w=majority';
+const uri = process.env.MONGODB_URL;
 
 // Connect to MongoDB Atlas
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
