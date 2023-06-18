@@ -26,6 +26,15 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         console.error('Failed to connect to MongoDB:', error);
     });
 
+app.get('/api/demo', async (req, res) => {
+    try {
+        res.status(200).json("surveyData");
+    } catch (error) {
+        console.error('Error fetching survey data:', error);
+        res.status(500).json({ error: 'An error occurred while fetching survey data' });
+    }
+});
+
 // Routes
 app.post('/api/register', async (req, res) => {
     const { email, password } = req.body;
