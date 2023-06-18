@@ -96,7 +96,7 @@ const SurveyForm = () => {
     useEffect(() => {
         const sendSurveyDataToMongoDB = async () => {
             try {
-                await axios.post('http://localhost:3000/api/surveyCollection', surveyData.data);
+                await axios.post('/api/surveyCollection', surveyData.data);
                 console.log('Survey data saved successfully');
                 // Success message or handle response accordingly
             } catch (error) {
