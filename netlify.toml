@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build" # Replace with the command to build your backend
+  command = "npm start" # Replace with the command to build your backend
   publish = "dist" # Replace with the directory where the built files are located
 
 [[redirects]]
