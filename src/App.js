@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, Navigate } from 'react-router-dom';
 import SurveyCreator from './SurveyCreator';
 import HomePage from './HomePage';
@@ -11,11 +11,15 @@ import SurveyStatistics from './SurveyStatistics';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [requestedPage, setRequestedPage] = useState(null);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const navbarRef = useRef(null);
   var userEmail = Cookies.get("email");
 
   useEffect(() => {
@@ -42,44 +46,67 @@ const App = () => {
     Cookies.remove('email');
     localStorage.removeItem('isLoggedIn');
     setIsAuthenticated(false);
+    setIsNavbarOpen(false);
+  };
+
+  // Function to toggle the navbar collapse on mobile screens
+  const toggleNavbar = () => {
+    setIsNavbarOpen(!isNavbarOpen);
+  };
+
+  // Function to close the navbar when a menu item is clicked
+  const closeNavbar = () => {
+    setIsNavbarOpen(false);
   };
 
   return (
     <Router>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" ref={navbarRef}>
           <div className="container">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/" onClick={closeNavbar}>
               Tech Insights
             </Link>
-            <div className="collapse navbar-collapse justify-content-start" id="navbarNav">
-              <ul className="navbar-nav">
+
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              onClick={toggleNavbar}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className={`collapse navbar-collapse${isNavbarOpen ? ' show' : ''}`} id="navbarNav">
+              <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <NavLink className="nav-link" exact to="/" activeClassName="active">
+                  <NavLink className="nav-link" exact to="/" activeClassName="active" onClick={closeNavbar}>
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/create" activeClassName="active">
+                  <NavLink className="nav-link" to="/create" activeClassName="active" onClick={closeNavbar}>
                     Create Survey
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/sampleform" activeClassName="active">
+                  <NavLink className="nav-link" to="/sampleform" activeClassName="active" onClick={closeNavbar}>
                     Sample Form
                   </NavLink>
                 </li>
-              </ul>
-            </div>
-            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <ul className="navbar-nav">
                 {isAuthenticated ? (
                   <>
                     <li className="nav-item">
-                      <span className="nav-link" style={{ color: "black" }}>{"Welcome, " + userEmail}</span>
+                      <span className="nav-link" style={{ color: "black" }}>
+                        {"Welcome, " + userEmail}
+                      </span>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/login" onClick={handleLogout}>
+                      <Link className="nav-link" to="/" onClick={handleLogout}>
                         <FontAwesomeIcon icon={faSignOutAlt} />
                       </Link>
                     </li>
@@ -87,12 +114,12 @@ const App = () => {
                 ) : (
                   <>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/login">
+                      <Link className="nav-link" to="/login" onClick={closeNavbar}>
                         Login
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/register">
+                      <Link className="nav-link" to="/register" onClick={closeNavbar}>
                         Register
                       </Link>
                     </li>
@@ -101,7 +128,7 @@ const App = () => {
               </ul>
             </div>
           </div>
-        </nav>
+        </nav >
 
         <div className="container mt-4">
           <Routes>
@@ -162,8 +189,8 @@ const App = () => {
             />
           </Routes>
         </div>
-      </div>
-    </Router>
+      </div >
+    </Router >
   );
 };
 

@@ -49,3 +49,47 @@
 .survey-creator-container .survey-creator__save-survey {
     margin-left: 10px;
 }
+
+/* Media Query for screens with a maximum width of 576px */
+@media (max-width: 576px) {
+    .survey-creator-container {
+        margin-top: 80px;
+        margin-left: 2px;
+    }
+
+    .survey-creator-container h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .survey-creator-container .survey-creator__question {
+        margin-top: 15px;
+        padding: 8px;
+    }
+
+    .survey-creator-container .survey-creator__question-label {
+        font-weight: bold;
+        margin-bottom: 3px;
+    }
+
+    .survey-creator-container .survey-creator__option {
+        margin-top: 8px;
+    }
+
+    .survey-creator-container .survey-creator__remove-option {
+        margin-left: 8px;
+    }
+
+    .survey-creator-container .survey-creator__add-question,
+    .survey-creator-container .survey-creator__remove-question {
+        margin-top: 8px;
+    }
+
+    .survey-creator-container .survey-creator__buttons {
+        margin-top: 15px;
+    }
+
+    .survey-creator-container .survey-creator__save-survey {
+        margin-left: 8px;
+    }
+}

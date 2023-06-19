@@ -1,5 +1,6 @@
 .homepage-container {
     margin-top: 80px;
+    align-items: center;
 }
 
 .title {
@@ -74,4 +75,30 @@
 
 .loading-text {
     margin: 0;
+}
+
+/* Media Query for screens with a maximum width of 576px */
+@media (max-width: 576px) {
+    .homepage-container {
+        margin-top: 80px;
+        align-items: center;
+    }
+
+    .title {
+        margin-bottom: 1rem;
+    }
+
+    .survey-list {
+        gap: 1rem;
+    }
+
+    .survey-card {
+        max-width: 100%;
+        min-height: auto;
+        max-height: none;
+    }
+
+    .survey-card .card-body {
+        padding: 1rem;
+    }
 }
