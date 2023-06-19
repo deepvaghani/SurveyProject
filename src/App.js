@@ -10,29 +10,31 @@ import ErrorPage from './ErrorPage';
 import SurveyStatistics from './SurveyStatistics';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faL, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoggedIn, setIsLoggedin] = useState(false);
   const [requestedPage, setRequestedPage] = useState(null);
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const navbarRef = useRef(null);
-  var userEmail = Cookies.get("email");
+  var userEmail = localStorage.getItem('email');
 
   useEffect(() => {
     // Check for authentication status in browser cookies on component mount
     const storedAuthStatus = document.cookie.includes('isAuthenticated=true');
     if (storedAuthStatus) {
       setIsAuthenticated(true);
+      if (localStorage.getItem('email') === null) { setIsLoggedin(false); }
     }
   }, []);
 
   // Function to handle successful login and set the authentication status
   const handleLogin = () => {
     setIsAuthenticated(true);
+    setIsLoggedin(true);
     // Store the authentication status in browser cookies
     document.cookie = 'isAuthenticated=true; path=/';
     // Redirect the user to the requested page
@@ -43,10 +45,11 @@ const App = () => {
 
   // Function to handle logout and reset the authentication status
   const handleLogout = () => {
-    Cookies.remove('email');
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('email');
     setIsAuthenticated(false);
     setIsNavbarOpen(false);
+    setIsLoggedin(false);
   };
 
   // Function to toggle the navbar collapse on mobile screens
@@ -80,55 +83,65 @@ const App = () => {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-
             <div className={`collapse navbar-collapse${isNavbarOpen ? ' show' : ''}`} id="navbarNav">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <NavLink className="nav-link" exact to="/" activeClassName="active" onClick={closeNavbar}>
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/create" activeClassName="active" onClick={closeNavbar}>
-                    Create Survey
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/sampleform" activeClassName="active" onClick={closeNavbar}>
-                    Sample Form
-                  </NavLink>
-                </li>
-                {isAuthenticated ? (
-                  <>
-                    <li className="nav-item">
-                      <span className="nav-link" style={{ color: "black" }}>
-                        {"Welcome, " + userEmail}
-                      </span>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/" onClick={handleLogout}>
-                        <FontAwesomeIcon icon={faSignOutAlt} />
-                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/login" onClick={closeNavbar}>
-                        Login
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/register" onClick={closeNavbar}>
-                        Register
-                      </Link>
-                    </li>
-                  </>
-                )}
-              </ul>
+
+              <div className={`collapse navbar-collapse${isNavbarOpen ? ' show' : ''} justify-content-start`} id="navbarNav">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" exact to="/" activeClassName="active" onClick={closeNavbar}>
+                      Home
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/create" activeClassName="active" onClick={closeNavbar}>
+                      Create Survey
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/sampleform" activeClassName="active" onClick={closeNavbar}>
+                      Sample Form
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+              {isLoggedIn ? (
+                <>
+                  <div className={`collapse navbar-collapse${isNavbarOpen ? ' show' : ''} justify-content-end`} id="navbarNav">
+                    <ul className="navbar-nav">
+                      <li className="nav-item">
+                        <span className="nav-link" style={{ color: "black" }}>
+                          {"Welcome, " + userEmail}
+                        </span>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/" onClick={handleLogout}>
+                          <FontAwesomeIcon icon={faSignOutAlt} />
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={`collapse navbar-collapse${isNavbarOpen ? ' show' : ''} justify-content-end`} id="navbarNav">
+                    <ul className="navbar-nav">
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to="/login" onClick={closeNavbar}>
+                          Login
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to="/register" onClick={closeNavbar}>
+                          Register
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
           </div>
-        </nav >
+        </nav>
 
         <div className="container mt-4">
           <Routes>

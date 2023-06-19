@@ -172,7 +172,7 @@ const SurveyCreator = () => {
                                 <Button
                                     onClick={() => removeQuestion(questionIndex)}
                                     className="survey-creator__remove-question"
-                                    style={{ marginLeft: '60px', marginBottom: '10px' }}
+                                    style={{ marginLeft: '60px', marginBottom: '18px' }}
                                 >
                                     Remove Question
                                 </Button>

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Survey } from 'survey-react-ui';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
-import Cookies from 'js-cookie';
 import 'survey-core/modern.fontless.min.css';
 
 const FindSurvey = () => {
@@ -17,7 +16,7 @@ const FindSurvey = () => {
         if (!isLoggedIn) {
             navigate('/login');
         }
-        window.email = Cookies.get('email');
+        window.email = localStorage.getItem('email');
         fetchSurveyFromMongoDB();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [surveyId]);
@@ -27,7 +26,7 @@ const FindSurvey = () => {
             const id = surveyId;
             const response = await axios.post('/api/checkresponse', {
                 responseData: {
-                    email: Cookies.get("email"),
+                    email: window.email,
                     id: id,
                 },
             });
@@ -112,7 +111,7 @@ const FindSurvey = () => {
             const response = await axios.post('/api/submitSurvey', {
                 surveyId: surveyData.id,
                 responseData: {
-                    email: Cookies.get("email"),
+                    email: window.email,
                     id: id,
                     questions: questions.map((question) => {
                         const questionId = question.name.replace('question', '');
