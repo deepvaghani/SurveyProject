@@ -398,8 +398,7 @@ app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
     try {
         const responses = await SurveyResponse.find({ 'responseData.id': surveyId, }).exec();
         const statistics = calculateStatistics(responses);
-        const { totalResponses, formattedStatistics } = statistics;
-        res.json({ surveyTitle: Survey.title, totalResponses, formattedStatistics });
+        res.json(statistics);
     } catch (error) {
         console.error('Error fetching survey statistics:', error);
         res.status(500).json({ error: 'An error occurred while fetching survey statistics' });
@@ -408,7 +407,6 @@ app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
 
 function calculateStatistics(responses) {
     const questionRatios = {};
-    let totalResponses = 0;
 
     responses.forEach((response) => {
         const { questions } = response.responseData;
@@ -423,11 +421,10 @@ function calculateStatistics(responses) {
             }
             questionRatios[questionText][answer]++;
         });
-
-        totalResponses++;
     });
 
     const formattedStatistics = Object.entries(questionRatios).map(([questionText, answers]) => {
+        const totalResponses = Object.values(answers).reduce((total, count) => total + count, 0);
         const ratios = Object.entries(answers).map(([answer, count]) => ({
             answer,
             ratio: count / totalResponses,
@@ -439,10 +436,7 @@ function calculateStatistics(responses) {
         };
     });
 
-    return {
-        totalResponses,
-        formattedStatistics,
-    };
+    return formattedStatistics;
 }
 
 // Start the server
