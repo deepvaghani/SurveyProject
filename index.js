@@ -407,6 +407,7 @@ app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
 
 function calculateStatistics(responses) {
     const questionRatios = {};
+    let totalResponses = 0;
 
     responses.forEach((response) => {
         const { questions } = response.responseData;
@@ -421,10 +422,11 @@ function calculateStatistics(responses) {
             }
             questionRatios[questionText][answer]++;
         });
+
+        totalResponses++;
     });
 
     const formattedStatistics = Object.entries(questionRatios).map(([questionText, answers]) => {
-        const totalResponses = Object.values(answers).reduce((total, count) => total + count, 0);
         const ratios = Object.entries(answers).map(([answer, count]) => ({
             answer,
             ratio: count / totalResponses,
@@ -436,7 +438,10 @@ function calculateStatistics(responses) {
         };
     });
 
-    return formattedStatistics;
+    return {
+        totalResponses,
+        formattedStatistics,
+    };
 }
 
 // Start the server
