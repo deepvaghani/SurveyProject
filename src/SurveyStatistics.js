@@ -8,6 +8,7 @@ import axios from 'axios';
 const SurveyStatistics = () => {
     const { surveyId } = useParams();
     const [statistics, setStatistics] = useState([]);
+    const [totalResponses, setTotalResponses] = useState([]);
 
     useEffect(() => {
         const fetchStatistics = async () => {
@@ -17,8 +18,9 @@ const SurveyStatistics = () => {
                         id: surveyId,
                     },
                 });
-                const data = await response.data;
-                setStatistics(data);
+                const { totalResponses, formattedStatistics } = response.data;
+                setTotalResponses(totalResponses);
+                setStatistics(formattedStatistics);
             } catch (error) {
                 console.error('Error fetching survey statistics:', error);
             }
@@ -54,7 +56,9 @@ const SurveyStatistics = () => {
         <Container className="survey-statistics-container mt-9" style={{ marginTop: '80px' }}>
             <Row className="justify-content-center">
                 <Col md={8}>
-                    <h2 className="text-center mb-4">Survey Statistics for Survey ID: {surveyId}</h2>
+                    <h2 className="text-center mb-4">Survey Analytics</h2>
+                    <h5 className="text-left mb-2">Survey ID: {surveyId}</h5>
+                    <h5 className="text-left mb-2">Total Responses: {totalResponses}</h5>
                     {mergedStatistics.length > 0 ? (
                         <div className="survey-statistics">
                             {mergedStatistics.map(({ questionText, ratios }) => (
