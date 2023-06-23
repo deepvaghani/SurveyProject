@@ -392,57 +392,6 @@ app.get('/api/surveyWithQuestions/:id', async (req, res) => {
     }
 });
 
-app.post('/api/sendmail', async (req, res) => {
-    try {
-        const { email } = req.body;
-        console.log(email);
-        res = await sendEmail(email, "Thank you for finishing survey", `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Survey Form</title>
-          <style>
-            label {
-              display: block;
-              margin-bottom: 10px;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Survey Form</h1>
-          <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required>
-        
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-              <option value="">-- Select One --</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-        
-            <label for="feedback">Feedback:</label>
-            <textarea id="feedback" name="feedback" rows="5" required></textarea>
-        
-            <input type="submit" value="Submit">
-          </form>
-        </body>
-        </html>
-        `);
-        console.log('Mail Sent');
-
-    } catch (error) {
-        console.error('An error occurred while sending mail', error);
-    }
-});
-
 app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
     const { surveyId } = req.params;
 
@@ -458,6 +407,7 @@ app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
 
 function calculateStatistics(responses) {
     const questionRatios = {};
+    let totalResponses = 0;
 
     responses.forEach((response) => {
         const { questions } = response.responseData;
@@ -472,10 +422,11 @@ function calculateStatistics(responses) {
             }
             questionRatios[questionText][answer]++;
         });
+
+        totalResponses++;
     });
 
     const formattedStatistics = Object.entries(questionRatios).map(([questionText, answers]) => {
-        const totalResponses = Object.values(answers).reduce((total, count) => total + count, 0);
         const ratios = Object.entries(answers).map(([answer, count]) => ({
             answer,
             ratio: count / totalResponses,
@@ -487,7 +438,10 @@ function calculateStatistics(responses) {
         };
     });
 
-    return formattedStatistics;
+    return {
+        totalResponses,
+        formattedStatistics,
+    };
 }
 
 // Start the server
