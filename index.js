@@ -398,7 +398,8 @@ app.get('/api/surveys/:surveyId/statistics', async (req, res) => {
     try {
         const responses = await SurveyResponse.find({ 'responseData.id': surveyId, }).exec();
         const statistics = calculateStatistics(responses);
-        res.json(statistics);
+        const { totalResponses, formattedStatistics } = statistics;
+        res.json({ surveyTitle: Survey.title, totalResponses, formattedStatistics });
     } catch (error) {
         console.error('Error fetching survey statistics:', error);
         res.status(500).json({ error: 'An error occurred while fetching survey statistics' });
