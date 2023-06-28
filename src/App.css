@@ -60,8 +60,9 @@
   color: #007bff;
 }
 
-.navbar-nav .active .nav-link {
+.navbar-nav .nav-link.active {
   color: #007bff;
+  ;
 }
 
 .navbar-toggler {
