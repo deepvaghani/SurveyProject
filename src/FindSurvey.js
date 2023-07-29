@@ -105,7 +105,6 @@ const FindSurvey = () => {
 
     const saveSurvey = async (survey) => {
         try {
-            const email = window.email;
             const id = surveyId;
             const questions = surveyData.pages[0].elements;
             const response = await axios.post('/api/submitSurvey', {

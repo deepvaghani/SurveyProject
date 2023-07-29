@@ -8,9 +8,8 @@ import RegisterForm from './RegisterForm';
 import SurveyForm from './SurveyForm';
 import ErrorPage from './ErrorPage';
 import SurveyStatistics from './SurveyStatistics';
-import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faL, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
