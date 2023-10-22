@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 const corsOptions = {
     origin: 'https://techinsights.netlify.app/' // Replace with your frontend URL
 };
+// asa
 
 // Add a middleware to set the CORS headers
 app.use((req, res, next) => {
