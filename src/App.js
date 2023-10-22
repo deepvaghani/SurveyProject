@@ -38,7 +38,8 @@ const App = () => {
     document.cookie = 'isAuthenticated=true; path=/';
     // Redirect the user to the requested page
     if (requestedPage) {
-      setRequestedPage(null); // Reset requestedPage state
+      setRequestedPage(null);
+      //sa // Reset requestedPage state
     }
   };
 
