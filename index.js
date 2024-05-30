@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // MongoDB Atlas connection string
-const uri = 'mongodb+srv://havaghani0q:oyiEOoX5WWLT96la@cluster0.qkxh5d9.mongodb.net/surveyCollection?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://havaghani0q:x6KGFbGTOTEh1yTg@surveydb.vsut8gh.mongodb.net/surveyCollection?retryWrites=true&w=majority';
 
 // Connect to MongoDB Atlas
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
