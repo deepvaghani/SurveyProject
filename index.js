@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // MongoDB Atlas connection string
-const uri = 'mongodb+srv://deepvaghani58:Deep2023@surveydb.3s9yqz7.mongodb.net/surveyCollection?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://havaghani0q:oyiEOoX5WWLT96la@cluster0.qkxh5d9.mongodb.net/surveyCollection?retryWrites=true&w=majority';
 
 // Connect to MongoDB Atlas
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -456,8 +456,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "deepvaghani58@gmail.com",
-        pass: "rjfdwhhwedphlpmn",
+        user: "havaghani0q@gmail.com",
+        pass: "ivgtiudbikgcxyzo",
     },
 });
 
@@ -466,7 +466,7 @@ async function sendEmail(to, subject, surveyResponse) {
     try {
         // Send the email
         const info = await transporter.sendMail({
-            from: "Deep Vaghani",
+            from: "Heel Vaghani",
             to: to,
             subject: subject,
             html: `${surveyResponse}`
