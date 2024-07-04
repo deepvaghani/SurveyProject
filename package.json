@@ -22,6 +22,7 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
+    "read-scripts": "^1.1.0",
     "styled-components": "^6.0.0-rc.3",
     "survey-core": "^1.9.92",
     "survey-creator-core": "latest",
@@ -38,8 +39,6 @@
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",
-    "predeploy": "npm run build && xcopy /Y /S public\\_redirects build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
