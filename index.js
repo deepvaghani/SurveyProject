@@ -8,7 +8,7 @@ const { MongoClient } = require('mongodb');
 const app = express();
 app.use(bodyParser.json());
 const corsOptions = {
-    origin: 'http://localhost:3001' // Replace with your frontend URL
+    origin: 'https://techinsights.netlify.app/' // Replace with your frontend URL
 };
 
 // Add a middleware to set the CORS headers
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // MongoDB Atlas connection string
-const uri = 'mongodb+srv://havaghani0q:x6KGFbGTOTEh1yTg@surveydb.vsut8gh.mongodb.net/surveyCollection?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://deepvaghani58:Deep2023@surveydb.3s9yqz7.mongodb.net/surveyCollection?retryWrites=true&w=majority';
 
 // Connect to MongoDB Atlas
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
