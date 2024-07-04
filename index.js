@@ -456,8 +456,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "havaghani0q@gmail.com",
-        pass: "ivgtiudbikgcxyzo",
+        user: "deepvaghani58@gmail.com",
+        pass: "rjfdwhhwedphlpmn",
     },
 });
 
@@ -466,7 +466,7 @@ async function sendEmail(to, subject, surveyResponse) {
     try {
         // Send the email
         const info = await transporter.sendMail({
-            from: "Heel Vaghani",
+            from: "Deep Vaghani",
             to: to,
             subject: subject,
             html: `${surveyResponse}`
