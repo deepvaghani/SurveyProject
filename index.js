@@ -8,7 +8,7 @@ const { MongoClient } = require('mongodb');
 const app = express();
 app.use(bodyParser.json());
 const corsOptions = {
-    origin: 'http://localhost:3001/' // Replace with your frontend URL
+    origin: 'https://techinsights.netlify.app/' // Replace with your frontend URL
 };
 
 // Add a middleware to set the CORS headers
