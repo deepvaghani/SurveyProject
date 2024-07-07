@@ -19,7 +19,7 @@ const App = () => {
   const [requestedPage, setRequestedPage] = useState(null);
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const navbarRef = useRef(null);
-  var userEmail = localStorage.getItem('email');sdasd
+  var userEmail = localStorage.getItem('email');
 
   useEffect(() => {
     // Check for authentication status in browser cookies on component mount
