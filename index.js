@@ -8,12 +8,12 @@ const { MongoClient } = require('mongodb');
 const app = express();
 app.use(bodyParser.json());
 const corsOptions = {
-    origin: 'https://techinsights.netlify.app/' // Replace with your frontend URL
+    origin: 'https://techinsights.netlify.app/login' // Replace with your frontend URL
 };
 
 // Add a middleware to set the CORS headers
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://techinsights.netlify.app/');
+    res.setHeader('Access-Control-Allow-Origin', 'https://techinsights.netlify.app/login');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, FETCH');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
