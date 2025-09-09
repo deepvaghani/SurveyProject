@@ -37,7 +37,8 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "react-app-rewired": "^2.2.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "webpack-dev-server": ">=5.2.1"
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",

@@ -16,7 +16,7 @@ const LoginForm = ({ handleLogin }) => {
             handleLogin();
             handleRedirect();
         }
-    }, [handleLogin]);
+    },);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
